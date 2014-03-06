@@ -20,6 +20,7 @@
 
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{pgfplots}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: tabelas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{multicol}
@@ -50,6 +51,9 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Início do poster %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{Copenhagen}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
 \begin{document}
 \begin{frame}[t,fragile]
   \begin{center}
@@ -79,79 +83,80 @@
 % O ambiente columns é definido na classe beamer.
   \begin{columns}[t]
     \begin{column}{0.4\textwidth}
-      \setlength{\parskip}{\baselineskip}
-      \textbf{Abstract}
+      \begin{block}{Abstract}
+        Benchmarking optimization packages are very important in optimization
+        field, not only because it is one of the way to compare packages, but also
+        to uncover deficiencies that could be overlooked. During benchmarking, one
+        can obtain several informations, like CPU time, number of functions
+        evaluations, number of iterations and so on. These informations, if
+        presented as tables, can be difficult to be analyzed, due, for instance,
+        to large amount of data. Therefore, researchers started testing tools to
+        better process and understand this data.  One of the most widespread ways
+        to do so is using Performance Profile graphics proposed by
+        \citeauthor{Dolan2001}.
 
-      Benchmarking optimization packages are very important in optimization
-      field, not only because it is one of the way to compare packages, but also
-      to uncover deficiencies that could be overlooked. During benchmarking, one
-      can obtain several informations, like CPU time, number of functions
-      evaluations, number of iterations and so on. These informations, if
-      presented as tables, can be difficult to be analyzed, due, for instance,
-      to large amount of data. Therefore, researchers started testing tools to
-      better process and understand this data.  One of the most widespread ways
-      to do so is using Performance Profile graphics proposed by
-      \citeauthor{Dolan2001}.
+        In this context, we implemented a free software that makes Performance
+        Profile using data provided by user in a friendly manner. This software
+        produces graphics in PDF using LaTeX with PGF/TikZ\nocite{TikZ} and
+        pgfplots\nocite{pgfplots} packages, in PNG using
+        matplotlib\nocite{Hunter:2007} and can also be easily extended to use with
+        other plot library. The software is implemented in Python3 with support
+        for internationalization and is available on
+        \url{https://github.com/abelsiqueira/perprof-py}.
+      \end{block}
 
-      In this context, we implemented a free software that makes Performance
-      Profile using data provided by user in a friendly manner. This software
-      produces graphics in PDF using LaTeX with PGF/TikZ\nocite{TikZ} and
-      pgfplots\nocite{pgfplots} packages, in PNG using
-      matplotlib\nocite{Hunter:2007} and can also be easily extended to use with
-      other plot library. The software is implemented in Python3 with support
-      for internationalization and is available on
-      \url{https://github.com/abelsiqueira/perprof-py}.
+      \begin{block}{Performance Profile}
+        Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
+        \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
+        required to solve problem $p$ by solver $s$ and
+        \begin{align*}
+          r_{ps} = \frac{t_{ps}}{\min\{t_{ps}: s \in S\}}
+        \end{align*}
+        as the performance ratio of solver $s$ for the problem $p$ when compared
+        with the best performance by any solver on this problem.
 
-      \textbf{Performance Profile}
+        \citeauthor{Dolan2001} define
+        \begin{align*}
+          \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
+        \end{align*}
+        where $\rho_s(\tau)$ is the probability for solver $s \in S$ to solve one
+        problem within a factor $\tau \in \mathbb{R}$ of the best performance
+        ratio. For a given $\tau$, the best solver is the one with the higher
+        value for $\rho_s(\tau)$.
 
-      Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
-      \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
-      required to solve problem $p$ by solver $s$ and
-      \begin{align*}
-        r_{ps} = \frac{t_{ps}}{\min\{t_{ps}: s \in S\}}
-      \end{align*}
-      as the performance ratio of solver $s$ for the problem $p$ when compared
-      with the best performance by any solver on this problem.
-
-      \citeauthor{Dolan2001} define
-      \begin{align*}
-        \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
-      \end{align*}
-      where $\rho_s(\tau)$ is the probability for solver $s \in S$ to solve one
-      problem within a factor $\tau \in \mathbb{R}$ of the best performance
-      ratio. For a given $\tau$, the best solver is the one with the higher
-      value for $\rho_s(\tau)$.
-
-      One of the advantages of using performance profiles is the easily graphic
-      analyse, it be relatively insensitive to changes in results on a small
-      number of problems and also largely unaffected by small changes in
-      results over many problems.
+        One of the advantages of using performance profiles is the easily graphic
+        analyse, it be relatively insensitive to changes in results on a small
+        number of problems and also largely unaffected by small changes in
+        results over many problems.
+      \end{block}
     \end{column}
     \begin{column}{0.4\textwidth}
-      \setlength{\parskip}{\baselineskip}
-      \textbf{Input file}
+      \begin{block}{Input file}
+        For every solver to be included in the benchmark there must be a file like
+        the sample below:
 
-      For every solver to be included in the benchmark there must be a file like
-      the sample below:
+        \begin{lstlisting}
+        # Solver name
+        Problem01 exit01 time01 objective01 primal01 dual01
+        Problem02 exit02 time02 objective02 primal02 dual02
+        Problem03 exit03 time03 objective03 primal03 dual03
+        \end{lstlisting}
 
-      \begin{lstlisting}
-      # Solver name
-      Problem01 exit01 time01 objective01 primal01 dual01
-      Problem02 exit02 time02 objective02 primal02 dual02
-      Problem03 exit03 time03 objective03 primal03 dual03
-      \end{lstlisting}
+        Each file has 6 columns that means, in order:
+        \begin{itemize}
+          \item The name of the problem;
+          \item Exit flag;
+          \item Time spent;
+          \item Objective function value;
+          \item Primal infeasibility;
+          \item Dual infeasibility.
+        \end{itemize}
+      \end{block}
 
-      Each file has 6 columns that means, in order:
-      \begin{itemize}
-        \item The name of the problem;
-        \item Exit flag;
-        \item Time spent;
-        \item Objective function value;
-        \item Primal infeasibility;
-        \item Dual infeasibility.
-      \end{itemize}
+      \begin{block}{Output}
 
-      \textbf{Output}
+      \input{abc-semilog}
+      \end{block}
 
       \textbf{References}
 
