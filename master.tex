@@ -58,7 +58,7 @@
 \begin{frame}[t,fragile]
   \begin{center}
     \begin{huge}
-      perprof-py -- A Python Package for Performance Profile 
+      perprof-py -- A Python Package for Performance Profile
     \end{huge}
 
     \vspace{40pt}
@@ -106,6 +106,10 @@
       \end{block}
 
       \begin{block}{Performance Profile}
+        The performance profile for a solver is the cumulative distribution
+        function for a performance metric, e.g, CPU time, number of functions
+        evaluations, number of iterations and so on.
+
         Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
         \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
         required to solve problem $p$ by solver $s$ and
@@ -129,8 +133,21 @@
         number of problems and also largely unaffected by small changes in
         results over many problems.
       \end{block}
-    \end{column}
-    \begin{column}{0.4\textwidth}
+
+      \begin{block}{Features}
+        Some of perprof-py features are:
+        \begin{itemize}
+          \item output LaTeX code,
+          \item output bitmap (using matplotlib),
+          \item options to treat some problems (e.g. spend time equals to
+            zero),
+          \item native internationalization support.
+        \end{itemize}
+
+        Beside the previous features, the package can be easily used in a range
+        of external tools that support Python.
+      \end{block}
+
       \begin{block}{Input file}
         For every solver to be included in the benchmark there must be a file like
         the sample below:
@@ -152,10 +169,15 @@
           \item Dual infeasibility.
         \end{itemize}
       \end{block}
-
+    \end{column}
+    \begin{column}{0.4\textwidth}
       \begin{block}{Output}
+        \input{abc-semilog}
+      \end{block}
 
-      \input{abc-semilog}
+      \begin{block}{Future works}
+        We have plans to extend perprof to also make data profiles as define by
+        \citeauthor{More2009}.
       \end{block}
 
       \textbf{References}
