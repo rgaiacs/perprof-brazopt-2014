@@ -1,17 +1,13 @@
-\documentclass[]{beamer}
+\documentclass[a0paper,portrait]{baposter}
 \usepackage[utf8]{inputenc}
 \usepackage{cmap}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{beamerposter}
-\usepackage{geometry}
-\geometry{paperwidth=90cm,paperheight=100cm}
 \usepackage{biblatex}
 \addbibresource{references.bib}
 
 \usepackage{url}
 \usepackage{breakurl}
-\usepackage{hyperref}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -22,176 +18,153 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: tabelas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{multicol}
-\usepackage{multirow}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: algoritmos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{algorithmic}
-\usepackage{algorithm}
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\listalgorithmname}{Lista de Algoritmos}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: códigos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{textcomp}
 \usepackage{listings}
-\renewcommand\lstlistingname{Código}
-\renewcommand\lstlistlistingname{Lista de Códigos}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: index %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{makeidx}
-\makeindex
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pacotes: fontes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{lmodern}
 \usepackage{mathrsfs}
 
+\definecolor{bordercol}{RGB}{40,40,40}
+\definecolor{headercol1}{RGB}{186,215,230}
+\definecolor{headercol2}{RGB}{80,80,80}
+\definecolor{headerfontcol}{RGB}{0,0,0}
+\definecolor{boxcolor}{RGB}{186,215,230}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Início do poster %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usetheme{Copenhagen}
-\setbeamertemplate{headline}{}
-\setbeamertemplate{footline}{}
 \begin{document}
-\begin{frame}[t,fragile]
-  \begin{center}
-    \begin{huge}
-      perprof-py -- A Python Package for Performance Profile
-    \end{huge}
+\begin{poster}
+  {
+    grid=false,
+    columns=2,
+    headerfont=\Large\sf\bf,
+    background=shadeTB,
+    borderColor=bordercol,
+    headerColorOne=headercol1,
+    headerColorTwo=headercol2,
+    headerFontColor=headerfontcol,
+    boxColorOne=boxcolor,
+    bgColorOne=white,
+    bgColorTwo=white,
+    textborder=rectangle,
+    headerborder=open,
+    headershape=rounded,
+    boxshade=plain
+  }
+  {
+    Eye catcher
+  }
+  {
+    perprof-py -- A Python Package for Performance Profile
+  }
+  {
+    Raniere Gaia Costa da Silva \\
+    \url{raniere@ime.unicamp.br}
+    Abel Soares Siqueira \\
+    \url{abel.s.siqueira@gmail.com}
+    Luiz Rafael dos Santos \\
+    \url{lrsantos11@gmail.com}
+  }
+  {
+    Logo
+  }
 
-    \vspace{40pt}
-    \begin{Large}
-      \begin{tabular}[]{c}
-        Raniere Gaia Costa da Silva \\
-        \url{raniere@ime.unicamp.br}
-      \end{tabular} \hspace{5cm}
-      \begin{tabular}[]{c}
-        Abel Soares Siqueira \\
-        \url{abel.s.siqueira@gmail.com}
-      \end{tabular} \hspace{5cm}
-      \begin{tabular}[]{c}
-        Luiz Rafael dos Santos \\
-        \url{lrsantos11@gmail.com}
-      \end{tabular}
-    \end{Large}
-  \end{center}
-  \vspace{40pt}
+  \begin{posterbox}[column=0]{Abstract}
+    Benchmarking optimization packages are very important in optimization
+    field, not only because it is one of the way to compare packages, but also
+    to uncover deficiencies that could be overlooked. During benchmarking, one
+    can obtain several informations, like CPU time, number of functions
+    evaluations, number of iterations and so on. These informations, if
+    presented as tables, can be difficult to be analyzed, due, for instance,
+    to large amount of data. Therefore, researchers started testing tools to
+    better process and understand this data.  One of the most widespread ways
+    to do so is using Performance Profile graphics proposed by
+    \cite{Dolan2001}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Corpo do poster %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% O ambiente columns é definido na classe beamer.
-  \begin{columns}[t]
-    \begin{column}{0.4\textwidth}
-      \begin{block}{Abstract}
-        Benchmarking optimization packages are very important in optimization
-        field, not only because it is one of the way to compare packages, but also
-        to uncover deficiencies that could be overlooked. During benchmarking, one
-        can obtain several informations, like CPU time, number of functions
-        evaluations, number of iterations and so on. These informations, if
-        presented as tables, can be difficult to be analyzed, due, for instance,
-        to large amount of data. Therefore, researchers started testing tools to
-        better process and understand this data.  One of the most widespread ways
-        to do so is using Performance Profile graphics proposed by
-        \citeauthor{Dolan2001}.
+    In this context, we implemented a free software that makes Performance
+    Profile using data provided by user in a friendly manner. This software
+    produces graphics in PDF using LaTeX with PGF/TikZ\nocite{TikZ} and
+    pgfplots\nocite{pgfplots} packages, in PNG using
+    matplotlib\nocite{Hunter:2007} and can also be easily extended to use with
+    other plot library. The software is implemented in Python3 with support
+    for internationalization and is available on
+    \url{https://github.com/abelsiqueira/perprof-py}.
+  \end{posterbox}
 
-        In this context, we implemented a free software that makes Performance
-        Profile using data provided by user in a friendly manner. This software
-        produces graphics in PDF using LaTeX with PGF/TikZ\nocite{TikZ} and
-        pgfplots\nocite{pgfplots} packages, in PNG using
-        matplotlib\nocite{Hunter:2007} and can also be easily extended to use with
-        other plot library. The software is implemented in Python3 with support
-        for internationalization and is available on
-        \url{https://github.com/abelsiqueira/perprof-py}.
-      \end{block}
+  \begin{posterbox}[column=0,below=auto]{Performance Profile}
+    The performance profile for a solver is the cumulative distribution
+    function for a performance metric, e.g, CPU time, number of functions
+    evaluations, number of iterations and so on.
 
-      \begin{block}{Performance Profile}
-        The performance profile for a solver is the cumulative distribution
-        function for a performance metric, e.g, CPU time, number of functions
-        evaluations, number of iterations and so on.
+    Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
+    \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
+    required to solve problem $p$ by solver $s$ and
+    \begin{align*}
+      r_{ps} = \frac{t_{ps}}{\min\{t_{ps}: s \in S\}}
+    \end{align*}
+    as the performance ratio of solver $s$ for the problem $p$ when compared
+    with the best performance by any solver on this problem.
 
-        Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
-        \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
-        required to solve problem $p$ by solver $s$ and
-        \begin{align*}
-          r_{ps} = \frac{t_{ps}}{\min\{t_{ps}: s \in S\}}
-        \end{align*}
-        as the performance ratio of solver $s$ for the problem $p$ when compared
-        with the best performance by any solver on this problem.
+    \cite{Dolan2001} define
+    \begin{align*}
+      \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
+    \end{align*}
+    where $\rho_s(\tau)$ is the probability for solver $s \in S$ to solve one
+    problem within a factor $\tau \in \mathbb{R}$ of the best performance
+    ratio. For a given $\tau$, the best solver is the one with the higher
+    value for $\rho_s(\tau)$.
 
-        \citeauthor{Dolan2001} define
-        \begin{align*}
-          \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
-        \end{align*}
-        where $\rho_s(\tau)$ is the probability for solver $s \in S$ to solve one
-        problem within a factor $\tau \in \mathbb{R}$ of the best performance
-        ratio. For a given $\tau$, the best solver is the one with the higher
-        value for $\rho_s(\tau)$.
+    One of the advantages of using performance profiles is the easily graphic
+    analyse, it be relatively insensitive to changes in results on a small
+    number of problems and also largely unaffected by small changes in
+    results over many problems.
+  \end{posterbox}
 
-        One of the advantages of using performance profiles is the easily graphic
-        analyse, it be relatively insensitive to changes in results on a small
-        number of problems and also largely unaffected by small changes in
-        results over many problems.
-      \end{block}
+  \begin{posterbox}[column=0,below=auto]{Features}
+    Some of perprof-py features are:
+    \begin{itemize}
+      \item output LaTeX code,
+      \item output bitmap (using matplotlib),
+      \item options to treat some problems (e.g. spend time equals to zero),
+      \item native internationalization support.
+    \end{itemize}
 
-      \begin{block}{Features}
-        Some of perprof-py features are:
-        \begin{itemize}
-          \item output LaTeX code,
-          \item output bitmap (using matplotlib),
-          \item options to treat some problems (e.g. spend time equals to
-            zero),
-          \item native internationalization support.
-        \end{itemize}
+    Beside the previous features, the package can be easily used in a range
+    of external tools that support Python.
+  \end{posterbox}
 
-        Beside the previous features, the package can be easily used in a range
-        of external tools that support Python.
-      \end{block}
+  \begin{posterbox}[column=1]{Input file}
+    For every solver to be included in the benchmark there must be a file like
+    the sample below:
 
-      \begin{block}{Input file}
-        For every solver to be included in the benchmark there must be a file like
-        the sample below:
+    \begin{lstlisting}
+    #Name Solver Name
+    Problem01 exit01 time01 objective01 primal01 dual01
+    Problem02 exit02 time02 objective02 primal02 dual02
+    Problem03 exit03 time03 objective03 primal03 dual03
+    \end{lstlisting}
 
-        \begin{lstlisting}
-        # Solver name
-        Problem01 exit01 time01 objective01 primal01 dual01
-        Problem02 exit02 time02 objective02 primal02 dual02
-        Problem03 exit03 time03 objective03 primal03 dual03
-        \end{lstlisting}
+    Each file has 6 columns that means, in order:
+    \begin{itemize}
+      \item The name of the problem;
+      \item Exit flag;
+      \item Time spent;
+      \item Objective function value;
+      \item Primal infeasibility;
+      \item Dual infeasibility.
+    \end{itemize}
+  \end{posterbox}
 
-        Each file has 6 columns that means, in order:
-        \begin{itemize}
-          \item The name of the problem;
-          \item Exit flag;
-          \item Time spent;
-          \item Objective function value;
-          \item Primal infeasibility;
-          \item Dual infeasibility.
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \begin{block}{Output}
-        \input{abc-semilog}
-      \end{block}
+  \begin{posterbox}[column=1,below=auto]{Output}
+    \input{abc-semilog}
+  \end{posterbox}
 
-      \begin{block}{Future works}
-        We have plans to extend perprof to also make data profiles as define by
-        \citeauthor{More2009}.
-      \end{block}
+  \begin{posterbox}[column=1,below=auto]{End}
+    \printbibliography
+  \end{posterbox}
 
-      \textbf{References}
-
-      \printbibliography
-    \end{column}
-  \end{columns}
-  \vfill
-  \begin{center}
-    \begin{tabular}[]{cc}
-      \multirow{2}{*}{\includegraphics[height=60pt]{figures/cc-by}} &
-      \Large{This work is licensed under a}\\ &
-      \Large{Creative Commons Attribution 3.0 Unported License.}
-    \end{tabular}
-  \end{center}
-\end{frame}
+  \begin{posterbox}[column=1,below=auto]{License}
+    \includegraphics[height=12pt]{figures/cc-by} \\
+    This work is licensed under a\\
+    Creative Commons Attribution 3.0 Unported License.
+  \end{posterbox}
+\end{poster}
 \end{document}
