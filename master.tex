@@ -24,6 +24,8 @@
 \usepackage{lmodern}
 \usepackage{mathrsfs}
 
+\usepackage{multirow}
+
 \definecolor{bordercol}{RGB}{40,40,40}
 \definecolor{headercol1}{RGB}{186,215,230}
 \definecolor{headercol2}{RGB}{80,80,80}
@@ -160,14 +162,16 @@
     \input{abc-semilog}
   \end{posterbox}
 
-  \begin{posterbox}[column=1,below=auto]{End}
-    \printbibliography
+  \begin{posterbox}[column=1,below=auto]{References}
+    \printbibliography[heading=none]
   \end{posterbox}
 
   \begin{posterbox}[column=1,below=auto]{License}
-    \includegraphics[height=12pt]{figures/cc-by} \\
-    This work is licensed under a\\
-    Creative Commons Attribution 3.0 Unported License.
+    \begin{tabular}{cl}
+      \multirow{2}{*}{\includegraphics[height=24pt]{figures/cc-by}} &
+      This work is licensed under a \\
+      & Creative Commons Attribution 3.0 Unported License.
+    \end{tabular}
   \end{posterbox}
 \end{poster}
 \end{document}
