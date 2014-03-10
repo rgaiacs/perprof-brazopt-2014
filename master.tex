@@ -17,6 +17,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\pgfplotsset{compat=newest,compat/show suggested version=false}
 
 \usepackage{textcomp}
 \usepackage{listings}
@@ -84,7 +85,7 @@
     to large amount of data. Therefore, researchers started testing tools to
     better process and understand this data.  One of the most widespread ways
     to do so is using Performance Profile graphics proposed by
-    \cite{Dolan2001}.
+    \citeauthor{Dolan2001}.
   \end{posterbox}
 
   \begin{posterbox}[column=0,below=auto]{Performance Profile}
@@ -101,7 +102,7 @@
     as the performance ratio of solver $s$ for the problem $p$ when compared
     with the best performance by any solver on this problem.
 
-    \cite{Dolan2001} define
+    \citeauthor{Dolan2001} define
     \begin{align*}
       \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
     \end{align*}
@@ -117,59 +118,74 @@
   \end{posterbox}
 
   \begin{posterbox}[column=0,below=auto]{perprof-py}
-    We implemented a free software that makes Performance Profile using data
+    We implemented a free/open software that makes performance profile using data
     provided by user in a friendly manner. This software produces graphics in PDF
-    using LaTeX with PGF/TikZ\nocite{TikZ} and pgfplots\nocite{pgfplots} packages,
-    in PNG using matplotlib\nocite{Hunter:2007} and can also be easily extended to
+    using LaTeX with PGF/TikZ and pgfplots packages,
+    in PNG using matplotlib and can also be easily extended to
     use with other plot library. The software is implemented in Python3 with
     support for internationalization and is available on
-    \url{https://github.com/abelsiqueira/perprof-py}.
+    \url{https://github.com/lpoo/perprof-py}.
   \end{posterbox}
 
-  \begin{posterbox}[column=0,below=auto]{Features}
+  \begin{posterbox}[column=0,below=auto,height=bottom]{Output}
+    \input{abc-semilog}
+  \end{posterbox}
+
+  \begin{posterbox}[column=1]{Features}
     Some of perprof-py features are:
     \begin{itemize}
-      \item output LaTeX code,
-      \item output bitmap (using matplotlib),
-      \item options to treat some problems (e.g. spend time equals to zero),
+      \item high quality output (in more than one format),
+      \item lots of native options/filters,
+      \item options to treat some ``naive'' problems (e.g. spend time equals to zero),
       \item native internationalization support.
     \end{itemize}
+
+    \begin{center}
+      \begin{tabular}{cc}
+        \input{abc-bw-semilog} &
+        \input{abc-100-semilog} \\
+        \input{abc-10} &
+        \input{abc-50}
+      \end{tabular}
+    \end{center}
 
     Beside the previous features, the package can be easily used in a range
     of external tools that support Python.
   \end{posterbox}
 
-  \begin{posterbox}[column=1]{Input file}
-    For every solver to be included in the benchmark there must be a file like
-    the sample below:
+  \begin{posterbox}[column=1,below=auto]{Input file}
+    Each solver to be used in the benchmark must have a file like:
 
     \begin{lstlisting}
-    #Name Solver Name
-    Problem01 exit01 time01 objective01 primal01 dual01
-    Problem02 exit02 time02 objective02 primal02 dual02
-    Problem03 exit03 time03 objective03 primal03 dual03
+#Name Solver
+Problem01 exit01 time01 objective01 primal01 dual01
+Problem02 exit02 time02 objective02 primal02 dual02
     \end{lstlisting}
 
     Each file has 6 columns that means, in order:
     \begin{itemize}
-      \item The name of the problem;
-      \item Exit flag;
-      \item Time spent;
-      \item Objective function value;
-      \item Primal infeasibility;
-      \item Dual infeasibility.
+      \item The name of the problem (\textbf{mandatory});
+      \item Exit flag (\textbf{mandatory});
+      \item Time spent (\textbf{mandatory});
+      \item Objective function value (\textbf{optional}, to be used in future
+        features);
+      \item Primal infeasibility (\textbf{optional}, to be used in future
+        features);
+      \item Dual infeasibility (\textbf{optional}, to be used in future
+        features).
     \end{itemize}
   \end{posterbox}
 
-  \begin{posterbox}[column=1,below=auto]{Output}
-    \input{abc-semilog}
+  \begin{posterbox}[column=1,below=auto]{Future works}
+    We have plans to extend perprof-py adding more features, improve metadata
+    support and also support data profiles as define by \citeauthor{More2009}.
   \end{posterbox}
 
   \begin{posterbox}[column=1,below=auto]{References}
     \printbibliography[heading=none]
   \end{posterbox}
 
-  \begin{posterbox}[column=1,below=auto]{License}
+  \begin{posterbox}[column=1,below=auto,height=bottom]{License}
     \begin{tabular}{cl}
       \multirow{2}{*}{\includegraphics[height=24pt]{figures/cc-by}} &
       This work is licensed under a \\
