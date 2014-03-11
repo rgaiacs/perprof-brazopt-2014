@@ -29,6 +29,17 @@ $ wget http://www.ime.unicamp.br/informatica/sites/default/files/util/imecclatex
 $ unzip imecclatex-1.0.zip -d ~
 ~~~
 
+- [perprof](https://github.com/lpoo/perprof-py) installed
+
+- Perprof images
+
+  Can be generated with
+
+~~~
+$ cd sources
+$ ./gen.sh
+~~~
+
 ## Build
 
 ~~~
