@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{biblatex}
+\usepackage{enumitem}
 \addbibresource{references.bib}
 
 \usepackage{url}
@@ -30,11 +31,13 @@
 \usepackage{unicamplogo}
 \usepackage{imecclogo}
 
-\definecolor{bordercol}{RGB}{40,40,40}
-\definecolor{headercol1}{RGB}{186,215,230}
-\definecolor{headercol2}{RGB}{80,80,80}
+\definecolor{bordercol}{RGB}{0,0,150}
+\definecolor{headercol1}{RGB}{131,137,220}
+\definecolor{headercol2}{RGB}{192,255,255}
 \definecolor{headerfontcol}{RGB}{0,0,0}
-\definecolor{boxcolor}{RGB}{186,215,230}
+\definecolor{boxcolor}{RGB}{220,240,240}
+\definecolor{bgcolor1}{RGB}{255,255,180}
+\definecolor{bgcolor2}{RGB}{255,180,100}
 
 \begin{document}
 \begin{poster}
@@ -48,18 +51,19 @@
     headerColorTwo=headercol2,
     headerFontColor=headerfontcol,
     boxColorOne=boxcolor,
-    bgColorOne=white,
-    bgColorTwo=white,
-    textborder=rectangle,
-    headerborder=open,
-    headershape=rounded,
+    boxheaderheight=1.8em,
+    bgColorOne=bgcolor1,
+    bgColorTwo=bgcolor2,
+    textborder=roundedsmall,
+    headerborder=closed,
+    headershape=smallrounded,
     boxshade=plain
   }
   {
     \unicamplogol
   }
   {
-    perprof-py \\ A Python Package for Performance Profile
+    perprof-py \vspace{2pt} \\ A Python Package for Performance Profile
   }
   {
     \begin{tabular}{ccc}
@@ -67,13 +71,15 @@
       Abel Soares Siqueira &
       Luiz-Rafael Santos \\
       \url{raniere@ime.unicamp.br} &
-      \url{abel.s.siqueira@gmail.com} &
+      \url{abel@ime.unicamp.br} &
       \url{lrsantos11@gmail.com}
     \end{tabular}
   }
   {
     \imecclogo
   }
+
+  \linespread{1.1}
 
   \begin{posterbox}[column=0]{Introduction}
     Benchmarking optimization packages are very important in optimization
@@ -90,11 +96,11 @@
 
   \begin{posterbox}[column=0,below=auto]{Performance Profile}
     The performance profile for a solver is the cumulative distribution
-    function for a performance metric, e.g, CPU time, number of functions
-    evaluations, number of iterations and so on.
+    function for a performance metric, e.g., CPU time, number of functions
+    evaluations, number of iterations, and so on, that we will call \emph{cost}.
 
     Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
-    \in P$ and solver $s \in S$, we define $t_{ps}$ as the computing time
+    \in P$ and solver $s \in S$, we define $t_{ps}$ as the cost
     required to solve problem $p$ by solver $s$ and
     \begin{align*}
       r_{ps} = \frac{t_{ps}}{\min\{t_{ps}: s \in S\}}
@@ -111,41 +117,37 @@
     ratio. For a given $\tau$, the best solver is the one with the higher
     value for $\rho_s(\tau)$.
 
-    One of the advantages of using performance profiles is the easily graphic
-    analyse, it be relatively insensitive to changes in results on a small
-    number of problems and also largely unaffected by small changes in
-    results over many problems.
+    \includegraphics[width=0.95\linewidth]{abc-semilog.pdf}
   \end{posterbox}
 
-  \begin{posterbox}[column=0,below=auto]{perprof-py}
+  \begin{posterbox}[column=0,below=auto,name=perprof]{perprof-py}
     We implemented a free/open software that makes performance profile using data
-    provided by user in a friendly manner. This software produces graphics in PDF
+    provided by the user in a friendly manner. This software produces graphics in PDF
     using LaTeX with PGF/TikZ and pgfplots packages,
     in PNG using matplotlib and can also be easily extended to
-    use with other plot library. The software is implemented in Python3 with
+    use other plot libraries. The software is implemented in Python3 with
     support for internationalization and is available on
     \url{https://github.com/lpoo/perprof-py}.
   \end{posterbox}
 
-  \begin{posterbox}[column=0,below=auto,height=bottom]{Output}
-    \input{abc-semilog}
-  \end{posterbox}
-
   \begin{posterbox}[column=1]{Features}
     Some of perprof-py features are:
-    \begin{itemize}
-      \item high quality output (in more than one format),
-      \item lots of native options/filters,
-      \item options to treat some naive problems (e.g. spend time equals to zero),
+    \begin{itemize}[noitemsep]
+      \item high quality output (in more than one format);
+      \item lots of native options/filters;
+      \item input processing to limit solver minimum and maximum costs and set
+        of problems;
       \item native internationalization support.
     \end{itemize}
 
     \begin{center}
       \begin{tabular}{cc}
-        \input{abc-bw-semilog} &
-        \input{abc-100-semilog} \\
-        \input{abc-10} &
-        \input{abc-50}
+        \includegraphics[scale=0.4]{abc-bw-semilog.pdf} &
+        \includegraphics[scale=0.4]{abc.pdf} \\
+        Black and white & Linear scale \\
+        \includegraphics[scale=0.4]{abc-100.pdf} &
+        \includegraphics[scale=0.4]{abc-hs} \\
+        Performance ratio limit & Subset (Hock-Schittkowski)
       \end{tabular}
     \end{center}
 
@@ -158,39 +160,44 @@
 
     \begin{lstlisting}
 #Name Solver
-Problem01 exit01 time01 objective01 primal01 dual01
-Problem02 exit02 time02 objective02 primal02 dual02
+Problem01 exit01 time01
+Problem02 exit02 time02
     \end{lstlisting}
 
-    Each file has 6 columns that means, in order:
-    \begin{itemize}
-      \item The name of the problem (\textbf{mandatory});
-      \item Exit flag (\textbf{mandatory});
-      \item Time spent (\textbf{mandatory});
-      \item Objective function value (\textbf{optional}, to be used in future
-        features);
-      \item Primal infeasibility (\textbf{optional}, to be used in future
-        features);
-      \item Dual infeasibility (\textbf{optional}, to be used in future
-        features).
+    Each line other than the solver name has 3 columns that means, in order:
+    \begin{itemize}[noitemsep]
+      \item The name of the problem;
+      \item Exit flag;
+      \item Time spent.
     \end{itemize}
   \end{posterbox}
 
   \begin{posterbox}[column=1,below=auto]{Future works}
-    We have plans to extend perprof-py adding more features, improve metadata
-    support and also support data profiles as define by \textcite{More2009}.
+    Some of our next improvements consists of:
+    \begin{itemize}[noitemsep]
+      \item add metadata support and also support data profiles as defined by
+        \textcite{More2009};
+      \item add support to analysis of the objective value, and the primal and
+        dual infeasibilities;
+      \item add more backends and more output formats.
+    \end{itemize}
   \end{posterbox}
 
   \begin{posterbox}[column=1,below=auto]{References}
     \printbibliography[heading=none]
   \end{posterbox}
 
-  \begin{posterbox}[column=1,below=auto,height=bottom]{License}
+  \begin{posterbox}[column=0,span=2,below=auto,height=bottom,
+    boxshade=none,textborder=none,headerborder=none,headershade=plain,
+  headerColorOne=bgcolor2, boxheaderheight=0cm]{}
+  \begin{center}
     \begin{tabular}{cl}
-      \multirow{2}{*}{\includegraphics[height=24pt]{figures/cc-by}} &
-      This work is licensed under a \\
-      & Creative Commons Attribution 3.0 Unported License.
+      \multirow{3}{*}{\includegraphics[height=24pt]{figures/cc-by}} & \\
+                                                                    & \Large
+      This work is licensed under a
+       Creative Commons Attribution 3.0 Unported License.
     \end{tabular}
+  \end{center}
   \end{posterbox}
 \end{poster}
 \end{document}
