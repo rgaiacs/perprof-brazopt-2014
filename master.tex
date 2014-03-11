@@ -60,7 +60,7 @@
     boxshade=plain
   }
   {
-    \unicamplogol
+     \unicamplogol
   }
   {
     perprof-py \vspace{2pt} \\ A Python Package for Performance Profile
@@ -82,24 +82,24 @@
   \linespread{1.1}
 
   \begin{posterbox}[column=0]{Introduction}
-    Benchmarking optimization packages are very important in optimization
-    field, not only because it is one of the way to compare solvers, but also
-    to uncover deficiencies that could be overlooked. During benchmarking, one
-    can obtain several informations, like CPU time, number of functions
-    evaluations, number of iterations and so on. These informations, if
+    Benchmarking optimization packages is very important in the optimization
+    field, not only because it is one of the ways to compare solvers, but also
+    to uncover deficiencies that could be overlooked. During benchmarking,
+    a large amount of information is obtained, like CPU time, number of function
+    evaluations, number of iterations and so on. This information, if
     presented as tables, can be difficult to be analyzed, due, for instance,
-    to large amount of data. Therefore, researchers started testing tools to
+    to large amounts of data. Therefore, researchers started testing tools to
     better process and understand this data.  One of the most widespread ways
-    to do so is using Performance Profile graphics proposed by
-    \textcite{Dolan2001}.
+    to do so is by using Performance Profile graphics as proposed by
+    \textcite{Dolan2002}.
   \end{posterbox}
 
   \begin{posterbox}[column=0,below=auto]{Performance Profile}
-    The performance profile for a solver is the cumulative distribution
-    function for a performance metric, e.g., CPU time, number of functions
+    The performance profile of a solver is the cumulative distribution
+    function of a performance metric, e.g., CPU time, number of functions
     evaluations, number of iterations, and so on, that we will call \emph{cost}.
 
-    Given a set $P$ of problems and a set $S$ of solvers. For each problem $p
+    Given a set $P$ of problems and a set $S$ of solvers, for each problem $p
     \in P$ and solver $s \in S$, we define $t_{ps}$ as the cost
     required to solve problem $p$ by solver $s$ and
     \begin{align*}
@@ -108,25 +108,25 @@
     as the performance ratio of solver $s$ for the problem $p$ when compared
     with the best performance by any solver on this problem.
 
-    \textcite{Dolan2001} define
+    \textcite{Dolan2002} define
     \begin{align*}
       \rho_s(\tau) = \frac{| \{p \in P: r_{ps} \leq \tau\} |}{| P |}
     \end{align*}
     where $\rho_s(\tau)$ is the probability for solver $s \in S$ to solve one
     problem within a factor $\tau \in \mathbb{R}$ of the best performance
-    ratio. For a given $\tau$, the best solver is the one with the higher
+    ratio. For a given $\tau$, the best solver is the one with the highest
     value for $\rho_s(\tau)$.
 
     \includegraphics[width=0.95\linewidth]{abc-semilog.pdf}
   \end{posterbox}
 
   \begin{posterbox}[column=0,below=auto,name=perprof]{perprof-py}
-    We implemented a free/open software that makes performance profile using data
+    We implemented a free/open software that generates performance profiles using data
     provided by the user in a friendly manner. This software produces graphics in PDF
     using LaTeX with PGF/TikZ and pgfplots packages,
     in PNG using matplotlib and can also be easily extended to
     use other plot libraries. The software is implemented in Python3 with
-    support for internationalization and is available on
+    support for internationalization and is available at
     \url{https://github.com/lpoo/perprof-py}.
   \end{posterbox}
 
@@ -151,7 +151,7 @@
       \end{tabular}
     \end{center}
 
-    Beside the previous features, the package can be easily used in a range
+    Besides the previous features, the package can be easily used in a range
     of external tools that support Python.
   \end{posterbox}
 
@@ -164,20 +164,20 @@ Problem01 exit01 time01
 Problem02 exit02 time02
     \end{lstlisting}
 
-    Each line other than the solver name has 3 columns that means, in order:
+    Each line other than the solver name has 3 columns that mean, in order:
     \begin{itemize}[noitemsep]
       \item The name of the problem;
       \item Exit flag;
-      \item Time spent.
+      \item Elapsed time.
     \end{itemize}
   \end{posterbox}
 
   \begin{posterbox}[column=1,below=auto]{Future works}
-    Some of our next improvements consists of:
+    Some of our next improvements consist of:
     \begin{itemize}[noitemsep]
       \item add metadata support and also support data profiles as defined by
         \textcite{More2009};
-      \item add support to analysis of the objective value, and the primal and
+      \item add support for the analysis of the objective value, and the primal and
         dual infeasibilities;
       \item add more backends and more output formats.
     \end{itemize}
