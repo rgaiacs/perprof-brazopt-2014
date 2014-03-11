@@ -1,7 +1,9 @@
 #!/bin/bash
 
-cmd='perprof *.table --tikz --free-format --success converged,success'
+cmd='perprof *.table --tikz --free-format --success converged,success
+--background 255,255,255'
 
+echo $cmd
 $cmd -o abc
 $cmd --semilog -o abc-semilog
 $cmd --black-and-white --semilog -o abc-bw-semilog

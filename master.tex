@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{biblatex}
+\usepackage{enumitem}
 \addbibresource{references.bib}
 
 \usepackage{url}
@@ -34,9 +35,9 @@
 \definecolor{headercol1}{RGB}{131,137,220}
 \definecolor{headercol2}{RGB}{192,255,255}
 \definecolor{headerfontcol}{RGB}{0,0,0}
-\definecolor{boxcolor}{RGB}{240,240,240}
-\definecolor{bgcolor1}{RGB}{255,255,255}
-\definecolor{bgcolor2}{RGB}{255,255,180}
+\definecolor{boxcolor}{RGB}{220,240,240}
+\definecolor{bgcolor1}{RGB}{255,255,180}
+\definecolor{bgcolor2}{RGB}{255,180,100}
 
 \begin{document}
 \begin{poster}
@@ -62,7 +63,7 @@
     \unicamplogol
   }
   {
-    perprof-py \\ A Python Package for Performance Profile
+    perprof-py \vspace{2pt} \\ A Python Package for Performance Profile
   }
   {
     \begin{tabular}{ccc}
@@ -77,6 +78,8 @@
   {
     \imecclogo
   }
+
+  \linespread{1.1}
 
   \begin{posterbox}[column=0]{Introduction}
     Benchmarking optimization packages are very important in optimization
@@ -113,9 +116,11 @@
     problem within a factor $\tau \in \mathbb{R}$ of the best performance
     ratio. For a given $\tau$, the best solver is the one with the higher
     value for $\rho_s(\tau)$.
+
+    \includegraphics[width=0.95\linewidth]{abc-semilog.pdf}
   \end{posterbox}
 
-  \begin{posterbox}[column=0,below=auto]{perprof-py}
+  \begin{posterbox}[column=0,below=auto,name=perprof]{perprof-py}
     We implemented a free/open software that makes performance profile using data
     provided by the user in a friendly manner. This software produces graphics in PDF
     using LaTeX with PGF/TikZ and pgfplots packages,
@@ -125,13 +130,9 @@
     \url{https://github.com/lpoo/perprof-py}.
   \end{posterbox}
 
-  \begin{posterbox}[column=0,below=auto,name=output]{Output}
-    \includegraphics[width=0.95\linewidth]{abc-semilog.pdf}
-  \end{posterbox}
-
   \begin{posterbox}[column=1]{Features}
     Some of perprof-py features are:
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
       \item high quality output (in more than one format);
       \item lots of native options/filters;
       \item input processing to limit solver minimum and maximum costs and set
@@ -143,8 +144,10 @@
       \begin{tabular}{cc}
         \includegraphics[scale=0.4]{abc-bw-semilog.pdf} &
         \includegraphics[scale=0.4]{abc.pdf} \\
+        Black and white & Linear scale \\
         \includegraphics[scale=0.4]{abc-100.pdf} &
-        \includegraphics[scale=0.4]{abc-hs}
+        \includegraphics[scale=0.4]{abc-hs} \\
+        Performance ratio limit & Subset (Hock-Schittkowski)
       \end{tabular}
     \end{center}
 
@@ -162,7 +165,7 @@ Problem02 exit02 time02
     \end{lstlisting}
 
     Each line other than the solver name has 3 columns that means, in order:
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
       \item The name of the problem;
       \item Exit flag;
       \item Time spent.
@@ -171,7 +174,7 @@ Problem02 exit02 time02
 
   \begin{posterbox}[column=1,below=auto]{Future works}
     Some of our next improvements consists of:
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
       \item add metadata support and also support data profiles as defined by
         \textcite{More2009};
       \item add support to analysis of the objective value, and the primal and
@@ -184,12 +187,17 @@ Problem02 exit02 time02
     \printbibliography[heading=none]
   \end{posterbox}
 
-  \begin{posterbox}[column=0,span=2,below=output,height=bottom]{License}
+  \begin{posterbox}[column=0,span=2,below=auto,height=bottom,
+    boxshade=none,textborder=none,headerborder=none,headershade=plain,
+  headerColorOne=bgcolor2, boxheaderheight=0cm]{}
+  \begin{center}
     \begin{tabular}{cl}
-      \multirow{2}{*}{\includegraphics[height=24pt]{figures/cc-by}} &
-      This work is licensed under a 
+      \multirow{3}{*}{\includegraphics[height=24pt]{figures/cc-by}} & \\
+                                                                    & \Large
+      This work is licensed under a
        Creative Commons Attribution 3.0 Unported License.
     \end{tabular}
+  \end{center}
   \end{posterbox}
 \end{poster}
 \end{document}
