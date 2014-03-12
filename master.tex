@@ -117,7 +117,7 @@
     ratio. For a given $\tau$, the best solver is the one with the highest
     value for $\rho_s(\tau)$.
 
-    \includegraphics[width=0.95\linewidth]{abc-semilog.pdf}
+    \includegraphics[width=0.98\linewidth]{abc-semilog.pdf}
   \end{posterbox}
 
   \begin{posterbox}[column=0,below=auto,name=perprof]{perprof-py}
@@ -127,7 +127,7 @@
     in PNG using matplotlib and can also be easily extended to
     use other plot libraries. The software is implemented in Python3 with
     support for internationalization and is available at
-    \url{https://github.com/lpoo/perprof-py}.
+    \url{https://github.com/lpoo/perprof-py} under GPLv3 license.
   \end{posterbox}
 
   \begin{posterbox}[column=1]{Features}
@@ -142,11 +142,11 @@
 
     \begin{center}
       \begin{tabular}{cc}
-        \includegraphics[scale=0.4]{abc-bw-semilog.pdf} &
-        \includegraphics[scale=0.4]{abc.pdf} \\
+        \includegraphics[width=0.45\linewidth,height=108pt]{abc-bw-semilog.pdf} &
+        \includegraphics[width=0.45\linewidth,height=108pt]{abc.pdf} \\
         Black and white & Linear scale \\
-        \includegraphics[scale=0.4]{abc-100.pdf} &
-        \includegraphics[scale=0.4]{abc-hs} \\
+        \includegraphics[width=0.45\linewidth,height=108pt]{abc-100.pdf} &
+        \includegraphics[width=0.45\linewidth,height=108pt]{abc-hs.pdf} \\
         Performance ratio limit & Subset (Hock-Schittkowski)
       \end{tabular}
     \end{center}
@@ -159,12 +159,14 @@
     Each solver to be used in the benchmark must have a file like:
 
     \begin{lstlisting}
-#Name Solver
+YAML information
 Problem01 exit01 time01
 Problem02 exit02 time02
     \end{lstlisting}
 
-    Each line other than the solver name has 3 columns that mean, in order:
+    In the YAML information you can set the name of the solver, and some
+    flags for perprof-py.
+    Each line beyond that has 3 columns that mean, in order:
     \begin{itemize}[noitemsep]
       \item The name of the problem;
       \item Exit flag;
