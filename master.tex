@@ -142,11 +142,11 @@
 
     \begin{center}
       \begin{tabular}{cc}
-        \includegraphics[scale=0.4]{abc-bw-semilog.pdf} &
-        \includegraphics[scale=0.4]{abc.pdf} \\
+        \includegraphics[width=0.45\linewidth,height=110pt]{abc-bw-semilog.pdf} &
+        \includegraphics[width=0.45\linewidth,height=110pt]{abc.pdf} \\
         Black and white & Linear scale \\
-        \includegraphics[scale=0.4]{abc-100.pdf} &
-        \includegraphics[scale=0.4]{abc-hs} \\
+        \includegraphics[width=0.45\linewidth,height=110pt]{abc-100.pdf} &
+        \includegraphics[width=0.45\linewidth,height=110pt]{abc-hs.pdf} \\
         Performance ratio limit & Subset (Hock-Schittkowski)
       \end{tabular}
     \end{center}
@@ -159,12 +159,13 @@
     Each solver to be used in the benchmark must have a file like:
 
     \begin{lstlisting}
-#Name Solver
+YAML information
 Problem01 exit01 time01
 Problem02 exit02 time02
     \end{lstlisting}
 
-    Each line other than the solver name has 3 columns that mean, in order:
+    In the YAML information you can set the name and other properties.
+    Each line other than hat 3 columns that mean, in order:
     \begin{itemize}[noitemsep]
       \item The name of the problem;
       \item Exit flag;
